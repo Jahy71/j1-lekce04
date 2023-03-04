@@ -67,6 +67,43 @@ public class HlavniProgram {
         }
     }
 
+    public void chytMys2() {
+        while (jerry.isAlive()) {
+            jdiZaJerrym();
+        }
+    }
+
+    public void jdiZaJerrym() {
+        int horizontalniRozdil = tom.getX() - jerry.getX();
+        if (horizontalniRozdil < 0) {
+            otocSeVpravo();
+            while (tom.getX() < jerry.getX()) {
+                tom.moveForward();
+            }
+        } else if (horizontalniRozdil > 0) {
+            otocSeVlevo();
+            while (tom.getX() > jerry.getX()) {
+                tom.moveForward();
+            }
+        }
+
+        int vertikalniRozdil = tom.getY() - jerry.getY();
+        if (vertikalniRozdil > 0) {
+            otocSeNahoru();
+            while (tom.getY() > jerry.getY()) {
+                tom.moveForward();
+            }
+        } else if (vertikalniRozdil < 0) {
+            otocSeDolu();
+            while (tom.getY() < jerry.getY()) {
+                tom.moveForward();
+            }
+        }
+
+
+    }
+
+
     private void otocSeVpravo() {
         if (tom.getOrientation() == PlayerOrientation.RIGHT) {
             return;
