@@ -73,7 +73,7 @@ public class HlavniProgram {
         }
     }
 
-    public void jdiZaJerrym() {
+    private void jdiZaJerrym() {
         int horizontalniRozdil = tom.getX() - jerry.getX();
         if (horizontalniRozdil < 0) {
             otocSeVpravo();
@@ -99,11 +99,45 @@ public class HlavniProgram {
                 tom.moveForward();
             }
         }
-
-
     }
 
+    public void chytMys3() {
+        while (jerry.isAlive()) {
+            jdiZaJerrymAVyhybejSeStromum();
+        }
+    }
 
+    private void jdiZaJerrymAVyhybejSeStromum() {
+        int horizontalniRozdil = tom.getX() - jerry.getX();
+        if (horizontalniRozdil > 0) {
+            otocSeVlevo();
+            while (tom.getX() > jerry.getY()) {
+                vyhniSePrekazce();
+                tom.moveForward();
+            }
+        } else if (horizontalniRozdil < 0) {
+            otocSeVpravo();
+            while (tom.getX() < jerry.getX()) {
+                vyhniSePrekazce();
+                tom.moveForward();
+            }
+        }
+        int vertikalniRozdil = tom.getY() - jerry.getY();
+        if (vertikalniRozdil > 0) {
+            otocSeNahoru();
+            while (tom.getY() > jerry.getY()) {
+                vyhniSePrekazce();
+                tom.moveForward();
+            }
+        } else if (vertikalniRozdil < 0) {
+            otocSeDolu();
+            while (tom.getY() < jerry.getY()) {
+                vyhniSePrekazce();
+                tom.moveForward();
+            }
+        }
+    }
+    
     private void otocSeVpravo() {
         if (tom.getOrientation() == PlayerOrientation.RIGHT) {
             return;
@@ -166,6 +200,15 @@ public class HlavniProgram {
         }
         tom.turnLeft();
         tom.turnLeft();
+    }
+
+    private void vyhniSePrekazce() {
+        if (tom.isPossibleToMoveForward()) {
+            return;
+        }
+        tom.turnLeft();
+        tom.moveForward();
+        tom.turnRight();
     }
 
     public void vytvorVeci(int pocetStromu) {
